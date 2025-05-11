@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #282c34;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .calculator {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      width: 320px;
+      max-width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .display {
+      width: 100%;
+      height: 60px;
+      background: #000;
+      color: #0f0;
+      font-size: 2rem;
+      text-align: right;
+      padding: 10px;
+      border: none;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .operator {
+      background: #ff9500;
+      color: white;
+    }
+
+    .equal {
+      background: #34c759;
+      color: white;
+      grid-column: span 2;
+    }
+
+    .clear {
+      background: #ff3b30;
+      color: white;
+    }
+
+    .number, .dot {
+      background: #333;
+      color: white;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    @media (max-width: 400px) {
+      .calculator {
+        width: 95%;
+      }
+      .display {
+        font-size: 1.6rem;
+      }
+      button {
+        padding: 16px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" class="display" id="display" readonly />
+    <div class="buttons">
+      <button class="clear">C</button>
+      <button class="operator">%</button>
+      <button class="operator">/</button>
+      <button class="operator">*</button>
+
+      <button class="number">7</button>
+      <button class="number">8</button>
+      <button class="number">9</button>
+      <button class="operator">-</button>
+
+      <button class="number">4</button>
+      <button class="number">5</button>
+      <button class="number">6</button>
+      <button class="operator">+</button>
+
+      <button class="number">1</button>
+      <button class="number">2</button>
+      <button class="number">3</button>
+      <button class="equal">=</button>
+
+      <button class="number" style="grid-column: span 2;">0</button>
+      <button class="dot">.</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    let currentInput = '';
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.textContent;
+
+        if (btn.classList.contains('clear')) {
+          currentInput = '';
+        } else if (btn.classList.contains('equal')) {
+          try {
+            currentInput = eval(currentInput.replace('%', '/100')).toString();
+          } catch {
+            currentInput = 'Error';
+          }
+        } else {
+          currentInput += val;
+        }
+
+        display.value = currentInput;
+        display.scrollLeft = display.scrollWidth; // scroll to end
+      });
+    });
+  </script>
+  <script type="text/javascript">
+	atOptions = {
+		'key' : 'd42420b640d01615f12b63d97b576470',
+		'format' : 'iframe',
+		'height' : 60,
+		'width' : 468,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/d42420b640d01615f12b63d97b576470/invoke.js"></script>
+
+</body>
+</html>
